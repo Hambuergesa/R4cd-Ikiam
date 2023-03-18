@@ -1,0 +1,63 @@
+---
+title: "**Visualizacion de Datos**"
+author: "*Lucia Garcia*"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    fig_height: 4
+    fig_width: 6
+    highlight: tango
+    theme: yeti
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document:
+    toc: yes
+    toc_depth: ´3´
+subtitle: "Tarea  3"
+---
+# 1. Visualización de datos
+
+Se van a utilizar datos que representan las el porcentaje de incidencia del la obesidad y sobre peso en la poblacion de 12 a 19 años dividido según las etnias que reciden en el Ecuador se según los datos del INEC en 2014.
+
+Los datos que se van a utilizar se hallan en la tabla a continuacion: 
+
+Tabla Nº1
+``` {obesidad}
+|               |indigena | afroecuatoriano | montubio | meztizo (+ otros)|
+| sobrepeso (%) | 15.2    | 26.9            |     13.8 |             19.1 | 
+| obesidad (%)  | 4.4     | 18.8            |     4.0  |             7.1  |
+
+```
+
+# 2. Estadistica diferencial
+
+se comprueba demanera estadistica que las medias son diferentes en el efecto de la población ecuatoriana
+
+```{r}
+library(car)
+sobrepeso <- c(15.2, 26.9, 13.8, 19.1 )
+obesidad <- c(4.4, 18.8, 4.0, 7.1 ) 
+
+
+t.test(x=sobrepeso, y=obesidad, alternative='two.sided', mu=0,
+      paired=TRUE, var.equal=TRUE, conf.level=0.95)
+```
+
+# 3. Grafica compuesta
+
+A continuacion podemos observar como se ejecutan las images referentes a la tabla inicial:
+
+```{DatosObesidad_Hoja_2}
+
+ggplot(DatosObesidad_Hoja_2, aes(x = sobrepeso, y = obesidad))+
+  geom_bar()
+
+df_gapminder %>% 
+  filter(between(obesidad, 0, 100)) %>% 
+  ggpolt(aes(x = gdpPrcap, y = lifeExp)) + geom_point()
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
